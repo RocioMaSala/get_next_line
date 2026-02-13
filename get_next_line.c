@@ -6,97 +6,66 @@
 /*   By: romarti2 <romarti2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 16:43:54 by romarti2          #+#    #+#             */
-/*   Updated: 2026/02/12 17:26:35 by romarti2         ###   ########.fr       */
+/*   Updated: 2026/02/13 14:58:04 by romarti2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-//#include "get_next_line.c"
 
-char	*ft_strchr(const char *s, int c)
+#include "get_next_line.h"
+
+/*static */ char *rest (char *acum, int i)
 {
-	int				i;
-	unsigned char	*new_s;
-
-	new_s = (unsigned char *)s;
-	i = 0;
-	while (new_s[i])
-	{
-		if (new_s[i] == (unsigned char)c)
-			return ((char *)&new_s[i]);
-		else
-			i++;
-	}
-	if ((unsigned char)c == '\0')
-		return ((char *)&new_s[i]);
-	return (NULL);
+    char *tmp;
+    
+    if (!acum[i]) 
+    {
+        free(acum);
+        return NULL;
+    }
+    tmp = ft_strdup(acum + i); 
+    free(acum);
+    return (tmp);
 }
-
-int	ft_strlen(char const *str)
+    
+char *extract_line (char *acum)
 {
-	int	i;
+    int i;
+    char *line;
 
-	i = 0;
-	while (str[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
-
-char	*ft_strdup(const char *s)
-{
-	char	*s2;
-	int		i;
-
-	i = 0;
-	s2 = malloc(sizeof(char) * (ft_strlen(s) + 1));
-	if (!s2)
-		return (NULL);
-	while (s[i] != '\0')
-	{
-		s2[i] = s[i];
-		i++;
-	}
-	s2[i] = '\0';
-	return (s2);
+    i = 0;
+    if (!acum[i])
+        return NULL;
+    while (acum[i] && acum[i] != '\n')
+        i++;
+    if (acum[i] == '\n')
+        i++;
+    line = ft_substr(acum, 0, i);
+    acum = rest(acum, i);
+    return (line);   
 }
 
 char *get_next_line(int fd)
 {
-    char buf[10];
+    char buf[BUFFER_SIZE + 1];
     ssize_t nbytes;
-    static char acum[11];
+    static char *acum;
     char *line;
+    char *tmp;
 
-    nbytes = read(fd, buf, 10);
-    while (nbytes != 0)
+    if (!acum)
+        acum = ft_strdup("");
+    while (!ft_strchr (acum, '\n') && (nbytes = read(fd, buf, BUFFER_SIZE)) > 0)
     {
-        nbytes --;
-        acum[nbytes] = buf[nbytes];
-    }
-    printf("El numero de char es %d, contenido de acum: %s \n", (int)nbytes, acum);
-    //  nbytes = read (fd, buf, 10);
-    line = ft_strdup(acum);
-    printf("Line es igual a: %s \n", line);
-    if (ft_strchr(line, '\n') != NULL)
-        buf[10] = ft_strchr(line, '\n');
-    printf("Contenido de buf: %s \n", buf);
-    close(fd);
+        buf[nbytes] = '\0';
+        tmp = ft_strjoin(acum, buf);
+        free(acum);
+        acum = tmp;
+    }       
+    if (nbytes < 0 || !acum)
+        return (NULL);
+    line = extract_line (acum);
     return (line);
 }
-/*
-int open (const char* pathname, int flags) // esto va en el main
-{
-    int fd;
-
-    if(!fd)
-        return (-1);
-    return(fd);
-}*/
 
 int main (void)
 {
