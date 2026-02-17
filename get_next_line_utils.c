@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_utils.c                                   :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: romarti2 <romarti2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 16:49:24 by romarti2          #+#    #+#             */
-/*   Updated: 2026/02/13 14:33:40 by romarti2         ###   ########.fr       */
+/*   Updated: 2026/02/16 21:37:08 by romarti2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strchr(const char *s, int c)
 	int				i;
 	unsigned char	*new_s;
 
+	if (!s)
+		return (NULL);
 	new_s = (unsigned char *)s;
 	i = 0;
 	while (new_s[i])
@@ -35,6 +37,8 @@ int	ft_strlen(char const *str)
 {
 	int	i;
 
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i] != '\0')
 	{
@@ -48,6 +52,8 @@ char	*ft_strdup(const char *s)
 	char	*s2;
 	int		i;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	s2 = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!s2)
@@ -93,6 +99,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		i;
 	int		j;
 
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
 	join = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!join)
 		return (NULL);
