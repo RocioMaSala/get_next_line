@@ -6,21 +6,17 @@
 /*   By: romarti2 <romarti2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 16:48:59 by romarti2          #+#    #+#             */
-/*   Updated: 2026/02/16 12:55:01 by romarti2         ###   ########.fr       */
+/*   Updated: 2026/03/09 10:59:15 by romarti2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define SEPARATOR '\n'
-
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
 
-# include <fcntl.h> // Para read
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 
