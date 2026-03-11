@@ -60,5 +60,9 @@ CS50_Harvard: https://cs50.harvard.edu/x/weeks/5/
 
 Peer to Peer.
 
+### Library - get_next_line-h
+This library implements the get_next_line function, which reads and returns a single line from a given file descriptor each time it is called. It uses a configurable BUFFER_SIZE to read the file in chunks and dynamically builds the resulting line until a newline character or the end of the file is reached. The implementation includes several utility functions for string manipulation (ft_strlen, ft_strdup, ft_substr, ft_strjoin, ft_strchr) and helper functions (rest, extract_line) to manage the remaining buffered content between calls. This approach allows efficient line-by-line reading while preserving any leftover data for the next function invocation. 
+
+
 ### Use of AI
 In this project, AI (such as ChatGPT/Gemini) was used in the conceptual explanation of the behavior of static variables and heap memory and structuring the README.
