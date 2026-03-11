@@ -6,7 +6,7 @@
 /*   By: romarti2 <romarti2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 16:43:54 by romarti2          #+#    #+#             */
-/*   Updated: 2026/03/10 16:35:09 by romarti2         ###   ########.fr       */
+/*   Updated: 2026/03/11 11:44:46 by romarti2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*rest(char *acum)
 {
 	int		i;
-	char	*res;
+	char	*rest;
 
 	if (!acum)
 		return (NULL);
@@ -27,9 +27,9 @@ char	*rest(char *acum)
 	if (!acum[i])
 		return (free(acum), NULL);
 	i++;
-	res = ft_strdup(&acum[i]);
+	rest = ft_strdup(&acum[i]);
 	free(acum);
-	return (res);
+	return (rest);
 }
 
 char	*extract_line(char *acum)
